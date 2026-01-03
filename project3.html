@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nexus Digital | IT-решения</title>
+    <style>
+        :root {
+            --primary: #0a0a0a;
+            --secondary: #1a1a1a;
+            --accent: #00d4ff;
+            --text: #e0e0e0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', system-ui, sans-serif;
+        }
+
+        body {
+            background: var(--primary);
+            color: var(--text);
+            overflow-x: hidden;
+        }
+
+        /* Анимированный фон */
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(0, 212, 255, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(0, 212, 255, 0.03) 0%, transparent 50%),
+                var(--primary);
+        }
+
+        /* Навигация */
+        .navbar {
+            padding: 2rem 4rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 800;
+            background: linear-gradient(45deg, var(--accent), #0099cc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 3rem;
+        }
+
+        .nav-links a {
+            color: var(--text);
+            text-decoration: none;
+            font-weight: 500;
+            position: relative;
+            padding: 0.5rem 0;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent);
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Герой */
+        .hero {
+            min-height: 90vh;
+            display: flex;
+            align-items: center;
+            padding: 0 4rem;
+            position: relative;
+        }
+
+        .hero-content h1 {
+            font-size: 4.5rem;
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(to right, #fff, var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .typing-text {
+            font-size: 1.5rem;
+            color: var(--accent);
+            margin-bottom: 2rem;
+            min-height: 60px;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 1.5rem;
+            margin-top: 3rem;
+        }
+
+        .btn {
+            padding: 1rem 2.5rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: var(--primary);
+        }
+
+        .btn-secondary {
+            border: 2px solid var(--accent);
+            color: var(--accent);
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0, 212, 255, 0.3);
+        }
+
+        /* Услуги */
+        .services {
+            padding: 8rem 4rem;
+            background: var(--secondary);
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+            margin-top: 4rem;
+        }
+
+        .service-card {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 15px;
+            padding: 2.5rem;
+            transition: all 0.3s;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            background: rgba(255, 255, 255, 0.05);
+            border-color: var(--accent);
+        }
+
+        .service-icon {
+            font-size: 2.5rem;
+            color: var(--accent);
+            margin-bottom: 1.5rem;
+        }
+
+        /* Технологии */
+        .tech {
+            padding: 6rem 4rem;
+        }
+
+        .tech-logos {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 4rem;
+            margin-top: 3rem;
+            font-size: 3rem;
+            color: rgba(255, 255, 255, 0.3);
+        }
+
+        .tech-logos i {
+            transition: color 0.3s, transform 0.3s;
+        }
+
+        .tech-logos i:hover {
+            color: var(--accent);
+            transform: scale(1.2);
+        }
+
+        /* Футер */
+        footer {
+            padding: 4rem;
+            text-align: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        @media (max-width: 768px) {
+            .navbar { padding: 1.5rem; flex-direction: column; gap: 1.5rem; }
+            .nav-links { gap: 1.5rem; flex-wrap: wrap; justify-content: center; }
+            .hero { padding: 2rem 1.5rem; text-align: center; }
+            .hero-content h1 { font-size: 2.8rem; }
+            .btn-group { flex-direction: column; align-items: center; }
+            .services, .tech { padding: 4rem 1.5rem; }
+            .tech-logos { gap: 2rem; font-size: 2rem; }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Анимированный фон -->
+    <div class="bg-animation"></div>
+
+    <!-- Навигация -->
+    <nav class="navbar">
+        <div class="logo">NEXUS DIGITAL</div>
+        <div class="nav-links">
+            <a href="#services">Услуги</a>
+            <a href="#projects">Проекты</a>
+            <a href="#tech">Технологии</a>
+            <a href="#contact">Контакты</a>
+        </div>
+    </nav>
+
+    <!-- Герой -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>ЦИФРОВЫЕ РЕШЕНИЯ ДЛЯ БИЗНЕСА ЗАВТРАШНЕГО ДНЯ</h1>
+            <div class="typing-text" id="typed-text"></div>
+            <p>Создаём инновационные веб-решения, мобильные приложения и digital-стратегии, которые выводят бизнес на новый уровень.</p>
+            
+            <div class="btn-group">
+                <a href="#contact" class="btn btn-primary">ОБСУДИТЬ ПРОЕКТ</a>
+                <a href="#projects" class="btn btn-secondary">НАШИ РАБОТЫ</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Услуги -->
+    <section class="services" id="services">
+        <h2 style="text-align: center; font-size: 2.5rem; margin-bottom: 1rem;">НАШИ УСЛУГИ</h2>
+        <p style="text-align: center; max-width: 700px; margin: 0 auto 3rem; color: #aaa;">Комплексные решения от стратегии до реализации</p>
+        
+        <div class="services-grid">
+            <div class="service-card">
+                <div class="service-icon">
+                    <i class="fas fa-code"></i>
+                </div>
+                <h3>Веб-разработка</h3>
+                <p>Современные сайты и веб-приложения на React, Vue.js и Node.js. От лендингов до сложных CRM-систем.</p>
+            </div>
+            
+            <div class="service-card">
+                <div class="service-icon">
+                    <i class="fas fa-mobile-alt"></i>
+                </div>
+                <h3>Мобильные приложения</h3>
+                <p>Кроссплатформенные приложения для iOS и Android с использованием Flutter и React Native.</p>
+            </div>
+            
+            <div class="service-card">
+                <div class="service-icon">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <h3>Digital-стратегия</h3>
+                <p>Анализ рынка, проектирование пользовательского опыта и разработка стратегии цифровой трансформации.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Технологии -->
+    <section class="tech" id="tech">
+        <h2 style="text-align: center; font-size: 2.5rem; margin-bottom: 1rem;">ТЕХНОЛОГИИ</h2>
+        <p style="text-align: center; max-width: 700px; margin: 0 auto; color: #aaa;">Используем современный стек технологий для реализации любых задач</p>
+        
+        <div class="tech-logos">
+            <i class="fab fa-html5" title="HTML5"></i>
+            <i class="fab fa-css3-alt" title="CSS3"></i>
+            <i class="fab fa-js" title="JavaScript"></i>
+            <i class="fab fa-react" title="React"></i>
+            <i class="fab fa-vuejs" title="Vue.js"></i>
+            <i class="fab fa-node-js" title="Node.js"></i>
+            <i class="fab fa-python" title="Python"></i>
+            <i class="fas fa-database" title="Базы данных"></i>
+        </div>
+    </section>
+
+    <!-- Футер -->
+    <footer id="contact">
+        <h2 style="margin-bottom: 1.5rem;">ГОТОВЫ К ИННОВАЦИЯМ?</h2>
+        <p style="margin-bottom: 2rem; color: #aaa;">Давайте обсудим, как мы можем помочь вашему бизнесу</p>
+        
+        <div style="margin-bottom: 2rem;">
+            <a href="mailto:hello@nexus-digital.com" style="color: var(--accent); text-decoration: none; font-weight: 600;">
+                hello@nexus-digital.com
+            </a>
+        </div>
+        
+        <div style="color: #666; margin-top: 3rem;">
+            <p>© 2024 Nexus Digital. Все права защищены.</p>
+            <p style="margin-top: 0.5rem; font-size: 0.9rem;">Создано с использованием современных веб-технологий</p>
+        </div>
+    </footer>
+
+    <script>
+        // Простой эффект печатающегося текста
+        const texts = [
+            "ВЕБ-РАЗРАБОТКА",
+            "МОБИЛЬНЫЕ ПРИЛОЖЕНИЯ", 
+            "DIGITAL-СТРАТЕГИИ",
+            "IT-КОНСАЛТИНГ"
+        ];
+        let speed = 100;
+        let textIndex = 0;
+        let charIndex = 0;
+        const typedText = document.getElementById('typed-text');
+        
+        function typeWriter() {
+            if (charIndex < texts[textIndex].length) {
+                typedText.innerHTML += texts[textIndex].charAt(charIndex);
+                charIndex++;
+                setTimeout(typeWriter, speed);
+            } else {
+                setTimeout(eraseText, 1500);
+            }
+        }
+        
+        function eraseText() {
+            if (typedText.innerHTML.length > 0) {
+                typedText.innerHTML = typedText.innerHTML.slice(0, -1);
+                setTimeout(eraseText, 50);
+            } else {
+                textIndex = (textIndex + 1) % texts.length;
+                charIndex = 0;
+                setTimeout(typeWriter, 500);
+            }
+        }
+        
+        // Запуск при загрузке страницы
+        window.onload = function() {
+            setTimeout(typeWriter, 1000);
+        };
+    </script>
+</body>
+</html>

@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SoleSearch | Премиум кроссовки</title>
+    <style>
+        :root {
+            --black: #111111;
+            --white: #ffffff;
+            --gray: #222222;
+            --accent: #ff6b35;
+            --light-gray: #f5f5f5;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background: var(--white);
+            color: var(--black);
+            line-height: 1.6;
+        }
+
+        /* Шапка с корзиной */
+        .header {
+            padding: 1.5rem 4rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #eee;
+            position: sticky;
+            top: 0;
+            background: white;
+            z-index: 1000;
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: 900;
+            letter-spacing: 2px;
+            color: var(--black);
+        }
+
+        .logo span {
+            color: var(--accent);
+        }
+
+        .nav {
+            display: flex;
+            gap: 3rem;
+        }
+
+        .nav a {
+            color: var(--black);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav a:hover {
+            color: var(--accent);
+        }
+
+        .cart-icon {
+            position: relative;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: var(--accent);
+            color: white;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            font-size: 0.8rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Герой с акцией */
+        .hero {
+            padding: 6rem 4rem;
+            background: linear-gradient(135deg, var(--black) 0%, var(--gray) 100%);
+            color: var(--white);
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto 2rem;
+        }
+
+        .sale-badge {
+            display: inline-block;
+            background: var(--accent);
+            color: white;
+            padding: 0.5rem 1.5rem;
+            border-radius: 50px;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        /* Каталог товаров */
+        .products {
+            padding: 6rem 4rem;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 3rem;
+        }
+
+        .product-card {
+            background: var(--light-gray);
+            border-radius: 15px;
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+
+        .product-badge {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            background: var(--accent);
+            color: white;
+            padding: 0.3rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .product-image {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+        }
+
+        .product-content {
+            padding: 1.5rem;
+        }
+
+        .product-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .product-price {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+
+        .current-price {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--black);
+        }
+
+        .old-price {
+            text-decoration: line-through;
+            color: #888;
+        }
+
+        .add-to-cart {
+            width: 100%;
+            padding: 1rem;
+            background: var(--black);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .add-to-cart:hover {
+            background: var(--accent);
+        }
+
+        /* Почему мы */
+        .features {
+            padding: 6rem 4rem;
+            background: var(--light-gray);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+        }
+
+        .feature {
+            text-align: center;
+        }
+
+        .feature i {
+            font-size: 2.5rem;
+            color: var(--accent);
+            margin-bottom: 1.5rem;
+        }
+
+        /* Корзина (модальное окно) */
+        .cart-modal {
+            position: fixed;
+            top: 0;
+            right: -400px;
+            width: 380px;
+            height: 100vh;
+            background: white;
+            box-shadow: -5px 0 25px rgba(0,0,0,0.1);
+            padding: 2rem;
+            transition: right 0.3s;
+            z-index: 2000;
+        }
+
+        .cart-modal.active {
+            right: 0;
+        }
+
+        .cart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #eee;
+        }
+
+        .close-cart {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Футер */
+        footer {
+            padding: 4rem;
+            background: var(--black);
+            color: var(--white);
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-logo {
+            font-size: 1.8rem;
+            font-weight: 900;
+            margin-bottom: 1rem;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .social-links a {
+            color: white;
+            font-size: 1.2rem;
+            transition: color 0.3s;
+        }
+
+        .social-links a:hover {
+            color: var(--accent);
+        }
+
+        @media (max-width: 768px) {
+            .header { padding: 1.5rem; }
+            .nav { gap: 1.5rem; display: none; }
+            .hero { padding: 4rem 1.5rem; }
+            .hero h1 { font-size: 2.5rem; }
+            .products, .features { padding: 4rem 1.5rem; }
+            .cart-modal { width: 100%; right: -100%; }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Шапка с корзиной -->
+    <header class="header">
+        <div class="logo">SOLE<span>SEARCH</span></div>
+        <nav class="nav">
+            <a href="#new">Новинки</a>
+            <a href="#men">Мужские</a>
+            <a href="#women">Женские</a>
+            <a href="#sale">Распродажа</a>
+        </nav>
+        <div class="cart-icon" id="cartButton">
+            <i class="fas fa-shopping-bag"></i>
+            <span class="cart-count" id="cartCount">0</span>
+        </div>
+    </header>
+
+    <!-- Герой с акцией -->
+    <section class="hero">
+        <div class="sale-badge">РАСПРОДАЖА ДО -50%</div>
+        <h1>НАЙДИ СВОЙ СТИЛЬ</h1>
+        <p>Премиум кроссовки от ведущих брендов с доставкой по всей Беларуси. Ограниченные коллекции и эксклюзивные модели.</p>
+        <a href="#products" style="display: inline-block; background: white; color: var(--black); padding: 1rem 2.5rem; border-radius: 8px; text-decoration: none; font-weight: 700; margin-top: 2rem;">СМОТРЕТЬ КОЛЛЕКЦИЮ</a>
+    </section>
+
+    <!-- Каталог товаров -->
+    <section class="products" id="products">
+        <h2 class="section-title">ПОПУЛЯРНЫЕ МОДЕЛИ</h2>
+        <div class="products-grid" id="productsGrid">
+            <!-- Товары будут добавляться через JavaScript -->
+        </div>
+    </section>
+
+    <!-- Почему мы -->
+    <section class="features">
+        <h2 class="section-title">ПОЧЕМУ ВЫБИРАЮТ НАС</h2>
+        <div class="features-grid">
+            <div class="feature">
+                <i class="fas fa-shipping-fast"></i>
+                <h3>Быстрая доставка</h3>
+                <p>Доставка по Минску за 1-2 дня, по Беларуси — 2-4 дня</p>
+            </div>
+            <div class="feature">
+                <i class="fas fa-shield-alt"></i>
+                <h3>Гарантия качества</h3>
+                <p>Только оригинальная продукция с гарантией 1 год</p>
+            </div>
+            <div class="feature">
+                <i class="fas fa-exchange-alt"></i>
+                <h3>Легкий возврат</h3>
+                <p>Возврат и обмен в течение 14 дней без вопросов</p>
+            </div>
+            <div class="feature">
+                <i class="fas fa-headset"></i>
+                <h3>Поддержка 24/7</h3>
+                <p>Консультанты готовы помочь в любое время</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Корзина -->
+    <div class="cart-modal" id="cartModal">
+        <div class="cart-header">
+            <h3>Ваша корзина</h3>
+            <button class="close-cart" id="closeCart">&times;</button>
+        </div>
+        <div id="cartItems">
+            <!-- Товары в корзине -->
+            <p style="text-align: center; color: #888;">Корзина пуста</p>
+        </div>
+        <div style="margin-top: auto; padding-top: 2rem; border-top: 1px solid #eee;">
+            <div style="display: flex; justify-content: space-between; margin-bottom: 1.5rem;">
+                <span>Итого:</span>
+                <span id="cartTotal">0 BYN</span>
+            </div>
+            <button style="width: 100%; padding: 1rem; background: var(--accent); color: white; border: none; border-radius: 8px; font-weight: 600; cursor: pointer;">ОФОРМИТЬ ЗАКАЗ</button>
+        </div>
+    </div>
+
+    <!-- Футер -->
+    <footer>
+        <div class="footer-grid">
+            <div>
+                <div class="footer-logo">SOLE<span style="color: var(--accent);">SEARCH</span></div>
+                <p>Магазин премиум кроссовок с 2024 года</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-telegram"></i></a>
+                    <a href="#"><i class="fab fa-vk"></i></a>
+                </div>
+            </div>
+            <div>
+                <h4>Магазин</h4>
+                <p><a href="#" style="color: #aaa; text-decoration: none;">Новинки</a></p>
+                <p><a href="#" style="color: #aaa; text-decoration: none;">Мужские</a></p>
+                <p><a href="#" style="color: #aaa; text-decoration: none;">Женские</a></p>
+                <p><a href="#" style="color: #aaa; text-decoration: none;">Распродажа</a></p>
+            </div>
+            <div>
+                <h4>Помощь</h4>
+                <p><a href="#" style="color: #aaa; text-decoration: none;">Доставка и оплата</a></p>
+                <p><a href="#" style="color: #aaa; text-decoration: none;">Возврат и обмен</a></p>
+                <p><a href="#" style="color: #aaa; text-decoration: none;">Размеры</a></p>
+                <p><a href="#" style="color: #aaa; text-decoration: none;">Контакты</a></p>
+            </div>
+            <div>
+                <h4>Контакты</h4>
+                <p>Минск, ул. Спортивная, 15</p>
+                <p>+375 (29) 123-45-67</p>
+                <p>info@solesearch.by</p>
+                <p>Ежедневно 10:00-22:00</p>
+            </div>
+        </div>
+        <p style="text-align: center; color: #666; padding-top: 2rem; border-top: 1px solid #333;">© 2024 SoleSearch. Все права защищены.</p>
+    </footer>
+
+    <script>
+        // Данные товаров
+        const products = [
+            {
+                id: 1,
+                name: "Nike Air Max 270",
+                price: 289.99,
+                oldPrice: 349.99,
+                image: "https://images.unsplash.com/photo-1542291026-7eec264c27ff",
+                badge: "ХИТ"
+            },
+            {
+                id: 2,
+                name: "Adidas Ultraboost",
+                price: 259.99,
+                oldPrice: 329.99,
+                image: "https://images.unsplash.com/photo-1600185365483-26d7a4cc7519",
+                badge: "НОВИНКА"
+            },
+            {
+                id: 3,
+                name: "New Balance 990",
+                price: 229.99,
+                oldPrice: 279.99,
+                image: "https://images.unsplash.com/photo-1549298916-b41d501d3772",
+                badge: "SALE"
+            },
+            {
+                id: 4,
+                name: "Puma RS-X",
+                price: 199.99,
+                oldPrice: 249.99,
+                image: "https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa",
+                badge: "-20%"
+            }
+        ];
+
+        // Корзина
+        let cart = [];
+        let cartCount = 0;
+        let cartTotal = 0;
+
+        // DOM элементы
+        const productsGrid = document.getElementById('productsGrid');
+        const cartCountEl = document.getElementById('cartCount');
+        const cartButton = document.getElementById('cartButton');
+        const cartModal = document.getElementById('cartModal');
+        const closeCart = document.getElementById('closeCart');
+        const cartItems = document.getElementById('cartItems');
+        const cartTotalEl = document.getElementById('cartTotal');
+
+        // Генерация товаров
+        function renderProducts() {
+            productsGrid.innerHTML = '';
+            products.forEach(product => {
+                const productEl = document.createElement('div');
+                productEl.className = 'product-card';
+                productEl.innerHTML = `
+                    ${product.badge ? `<div class="product-badge">${product.badge}</div>` : ''}
+                    <img src="${product.image}" alt="${product.name}" class="product-image">
+                    <div class="product-content">
+                        <h3 class="product-title">${product.name}</h3>
+                        <div class="product-price">
+                            <span class="current-price">${product.price} BYN</span>
+                            ${product.oldPrice ? `<span class="old-price">${product.oldPrice} BYN</span>` : ''}
+                        </div>
+                        <button class="add-to-cart" onclick="addToCart(${product.id})">
+                            В КОРЗИНУ
+                        </button>
+                    </div>
+                `;
+                productsGrid.appendChild(productEl);
+            });
+        }
+
+        // Функции корзины
+        function addToCart(productId) {
+            const product = products.find(p => p.id === productId);
+            cart.push(product);
+            cartCount++;
+            cartTotal += product.price;
+            
+            updateCart();
+            showNotification(`${product.name} добавлен в корзину`);
+        }
+
+        function updateCart() {
+            cartCountEl.textContent = cartCount;
+            cartTotalEl.textContent = cartTotal.toFixed(2) + ' BYN';
+            
+            // Обновляем список товаров в корзине
+            cartItems.innerHTML = '';
+            if (cart.length === 0) {
+                cartItems.innerHTML = '<p style="text-align: center; color: #888;">Корзина пуста</p>';
+            } else {
+                cart.forEach((item, index) => {
+                    const itemEl = document.createElement('div');
+                    itemEl.style.cssText = 'display: flex; align-items: center; gap: 1rem; padding: 1rem 0; border-bottom: 1px solid #eee;';
+                    itemEl.innerHTML = `
+                        <img src="${item.image}" style="width: 60px; height: 60px; object-fit: cover; border-radius: 8px;">
+                        <div style="flex: 1;">
+                            <h4 style="margin: 0; font-size: 0.9rem;">${item.name}</h4>
+                            <p style="margin: 5px 0; color: var(--accent); font-weight: 700;">${item.price} BYN</p>
+                        </div>
+                        <button onclick="removeFromCart(${index})" style="background: none; border: none; color: #888; cursor: pointer;">×</button>
+                    `;
+                    cartItems.appendChild(itemEl);
+                });
+            }
+        }
+
+        function removeFromCart(index) {
+            cartTotal -= cart[index].price;
+            cart.splice(index, 1);
+            cartCount--;
+            updateCart();
+        }
+
+        function showNotification(message) {
+            const notification = document.createElement('div');
+            notification.textContent = message;
+            notification.style.cssText = `
+                position: fixed;
+                bottom: 20px;
+                left: 50%;
+                transform: translateX(-50%);
+                background: var(--accent);
+                color: white;
+                padding: 1rem 2rem;
+                border-radius: 8px;
+                z-index: 3000;
+                animation: fadeInOut 3s ease-in-out;
+            `;
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.remove();
+            }, 3000);
+        }
+
+        // Открытие/закрытие корзины
+        cartButton.addEventListener('click', () => {
+            cartModal.classList.add('active');
+        });
+
+        closeCart.addEventListener('click', () => {
+            cartModal.classList.remove('active');
+        });
+
+        // Закрытие корзины при клике вне её
+        document.addEventListener('click', (e) => {
+            if (!cartModal.contains(e.target) && !cartButton.contains(e.target)) {
+                cartModal.classList.remove('active');
+            }
+        });
+
+        // Стили для анимации уведомления
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes fadeInOut {
+                0% { opacity: 0; transform: translate(-50%, 20px); }
+                10% { opacity: 1; transform: translate(-50%, 0); }
+                90% { opacity: 1; transform: translate(-50%, 0); }
+                100% { opacity: 0; transform: translate(-50%, 20px); }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Инициализация
+        renderProducts();
+        updateCart();
+    </script>
+</body>
+</html>

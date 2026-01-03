@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lenscape | Фотограф</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', -apple-system, sans-serif;
+        }
+
+        :root {
+            --dark: #0a0a0a;
+            --light: #f8f8f8;
+            --accent: #e63946;
+            --gray: #2a2a2a;
+        }
+
+        body {
+            background: var(--dark);
+            color: var(--light);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Навигация */
+        .nav {
+            position: fixed;
+            width: 100%;
+            padding: 2rem 4rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            background: rgba(10, 10, 10, 0.9);
+            backdrop-filter: blur(10px);
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 800;
+            letter-spacing: 2px;
+            color: var(--light);
+            text-decoration: none;
+        }
+
+        .nav-links a {
+            color: var(--light);
+            text-decoration: none;
+            margin-left: 3rem;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent);
+        }
+
+        /* Герой-секция */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 0 4rem;
+            position: relative;
+        }
+
+        .hero-content {
+            max-width: 600px;
+        }
+
+        .hero h1 {
+            font-size: 4.5rem;
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(45deg, #fff 30%, #ccc 70%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: #aaa;
+            margin-bottom: 2rem;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            background: var(--accent);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(230, 57, 70, 0.3);
+        }
+
+        /* Галерея */
+        .gallery {
+            padding: 8rem 4rem;
+            background: var(--gray);
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 4rem;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .photo-card {
+            position: relative;
+            overflow: hidden;
+            border-radius: 15px;
+            height: 400px;
+        }
+
+        .photo-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+
+        .photo-card:hover img {
+            transform: scale(1.05);
+        }
+
+        .photo-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+            padding: 2rem;
+            transform: translateY(20px);
+            opacity: 0;
+            transition: all 0.3s;
+        }
+
+        .photo-card:hover .photo-overlay {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        /* Футер */
+        footer {
+            padding: 4rem;
+            text-align: center;
+            border-top: 1px solid #333;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .social-links a {
+            color: var(--light);
+            font-size: 1.5rem;
+            transition: color 0.3s;
+        }
+
+        .social-links a:hover {
+            color: var(--accent);
+        }
+
+        /* Адаптивность */
+        @media (max-width: 768px) {
+            .nav { padding: 1.5rem; }
+            .nav-links { display: none; }
+            .hero { padding: 0 1.5rem; }
+            .hero h1 { font-size: 2.5rem; }
+            .gallery { padding: 4rem 1.5rem; }
+            .grid { grid-template-columns: 1fr; }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Навигация -->
+    <nav class="nav">
+        <a href="#" class="logo">LENSCAPE</a>
+        <div class="nav-links">
+            <a href="#portfolio">Портфолио</a>
+            <a href="#about">Обо мне</a>
+            <a href="#contact">Контакты</a>
+        </div>
+    </nav>
+
+    <!-- Герой-секция -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>ЛОВЛЮ МОМЕНТЫ, СОЗДАЮ ИСТОРИИ</h1>
+            <p>Профессиональная фотосъёмка для ваших самых важных моментов. Портреты, свадьбы, коммерческая фотография.</p>
+            <a href="#contact" class="btn">Забронировать съёмку</a>
+        </div>
+    </section>
+
+    <!-- Галерея -->
+    <section class="gallery" id="portfolio">
+        <h2 class="section-title">ПОРТФОЛИО</h2>
+        <div class="grid">
+            <div class="photo-card">
+                <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2" alt="Портрет">
+                <div class="photo-overlay">
+                    <h3>ПОРТРЕТЫ</h3>
+                </div>
+            </div>
+            <div class="photo-card">
+                <img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc" alt="Свадьба">
+                <div class="photo-overlay">
+                    <h3>СВАДЬБЫ</h3>
+                </div>
+            </div>
+            <div class="photo-card">
+                <img src="https://images.unsplash.com/photo-1497366754035-f200968a6e72" alt="Архитектура">
+                <div class="photo-overlay">
+                    <h3>АРХИТЕКТУРА</h3>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Футер -->
+    <footer id="contact">
+        <h2>СВЯЖИТЕСЬ СО МНОЙ</h2>
+        <p>Готов создать для вас незабываемые кадры</p>
+        
+        <div class="social-links">
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-telegram"></i></a>
+            <a href="#"><i class="fab fa-behance"></i></a>
+            <a href="#"><i class="fas fa-envelope"></i></a>
+        </div>
+        
+        <p>© 2024 Lenscape. Все права защищены.</p>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Urban Brew | Кофейня</title>
+    <style>
+        :root {
+            --cream: #f5e9d4;
+            --brown: #3d2b1f;
+            --accent: #d4a76a;
+            --light: #fffaf0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Playfair Display', serif;
+        }
+
+        body {
+            background: var(--cream);
+            color: var(--brown);
+            line-height: 1.8;
+        }
+
+        /* Шапка */
+        header {
+            padding: 2rem 4rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: absolute;
+            width: 100%;
+            z-index: 1000;
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--light);
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .menu-btn {
+            background: var(--accent);
+            color: var(--brown);
+            border: none;
+            padding: 0.8rem 2rem;
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .menu-btn:hover {
+            background: var(--brown);
+            color: var(--cream);
+        }
+
+        /* Герой */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(rgba(61, 43, 31, 0.7), rgba(61, 43, 31, 0.7)), 
+                        url('https://images.unsplash.com/photo-1498804103079-a6351b050096');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: var(--light);
+            padding: 0 2rem;
+        }
+
+        .hero-content h1 {
+            font-size: 5rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        .hero-content p {
+            font-size: 1.3rem;
+            max-width: 600px;
+            margin: 0 auto 2rem;
+        }
+
+        /* Меню */
+        .menu-section {
+            padding: 6rem 4rem;
+            background: var(--light);
+        }
+
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 3rem;
+            margin-top: 4rem;
+        }
+
+        .menu-item {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            transition: transform 0.3s;
+        }
+
+        .menu-item:hover {
+            transform: translateY(-10px);
+        }
+
+        .menu-item img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .menu-item-content {
+            padding: 1.5rem;
+        }
+
+        .item-title {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.5rem;
+        }
+
+        .price {
+            color: var(--accent);
+            font-weight: 700;
+            font-size: 1.2rem;
+        }
+
+        /* О нас */
+        .about {
+            padding: 6rem 4rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .about-img {
+            border-radius: 20px;
+            overflow: hidden;
+            height: 500px;
+        }
+
+        .about-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Контакты */
+        .contact {
+            padding: 6rem 4rem;
+            background: var(--brown);
+            color: var(--cream);
+            text-align: center;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-top: 3rem;
+        }
+
+        .contact-item i {
+            font-size: 2.5rem;
+            color: var(--accent);
+            margin-bottom: 1rem;
+        }
+
+        @media (max-width: 768px) {
+            header { padding: 1.5rem; }
+            .hero-content h1 { font-size: 3rem; }
+            .about { grid-template-columns: 1fr; }
+            .menu-section, .about, .contact { padding: 4rem 1.5rem; }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Шапка -->
+    <header>
+        <div class="logo">URBAN BREW</div>
+        <button class="menu-btn">СМОТРЕТЬ МЕНЮ</button>
+    </header>
+
+    <!-- Герой -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>ЛУЧШИЙ КОФЕ В ГОРОДЕ</h1>
+            <p>Обжарка вручную, авторские рецепты и уютная атмосфера для настоящих ценителей кофе.</p>
+        </div>
+    </section>
+
+    <!-- Меню -->
+    <section class="menu-section">
+        <h2 style="text-align: center; font-size: 2.5rem; margin-bottom: 1rem;">НАШЕ МЕНЮ</h2>
+        <p style="text-align: center; max-width: 600px; margin: 0 auto;">Только свежие ингредиенты и любовь в каждой чашке</p>
+        
+        <div class="menu-grid">
+            <div class="menu-item">
+                <img src="https://images.unsplash.com/photo-1544787219-7f47ccb76574" alt="Эспрессо">
+                <div class="menu-item-content">
+                    <div class="item-title">
+                        <h3>Эспрессо</h3>
+                        <span class="price">4.50 BYN</span>
+                    </div>
+                    <p>Классический крепкий кофе из свежемолотых зёрен</p>
+                </div>
+            </div>
+            
+            <div class="menu-item">
+                <img src="https://images.unsplash.com/photo-1568649929103-28ffbefaca1e" alt="Латте">
+                <div class="menu-item-content">
+                    <div class="item-title">
+                        <h3>Латте Арт</h3>
+                        <span class="price">6.80 BYN</span>
+                    </div>
+                    <p>Нежный кофе с молоком и авторским рисунком на пенке</p>
+                </div>
+            </div>
+            
+            <div class="menu-item">
+                <img src="https://images.unsplash.com/photo-1578662996442-48f60103fc96" alt="Выпечка">
+                <div class="menu-item-content">
+                    <div class="item-title">
+                        <h3>Круассан</h3>
+                        <span class="price">3.90 BYN</span>
+                    </div>
+                    <p>Свежая слоёная выпечка с шоколадом или миндалём</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- О нас -->
+    <section class="about">
+        <div class="about-img">
+            <img src="https://images.unsplash.com/photo-1445116572660-236099ec97a0" alt="Интерьер">
+        </div>
+        <div>
+            <h2 style="font-size: 2.5rem; margin-bottom: 1.5rem;">НАША ИСТОРИЯ</h2>
+            <p>Urban Brew — это больше чем просто кофейня. Это место, где рождается сообщество ценителей хорошего кофе. Мы самостоятельно обжариваем зёрна из Эфиопии, Колумбии и Бразилии, создавая уникальные вкусовые профили.</p>
+            <p style="margin-top: 1.5rem;">Наши бариста проходят обучение у лучших мастеров и всегда готовы приготовить для вас идеальную чашку кофе.</p>
+        </div>
+    </section>
+
+    <!-- Контакты -->
+    <section class="contact">
+        <h2 style="font-size: 2.5rem; margin-bottom: 1rem;">ПРИХОДИТЕ В ГОСТИ</h2>
+        <p>Мы ждём вас каждый день с 8:00 до 22:00</p>
+        
+        <div class="contact-grid">
+            <div class="contact-item">
+                <i class="fas fa-map-marker-alt"></i>
+                <h3>АДРЕС</h3>
+                <p>ул. Кофейная, 17<br>Минск, Беларусь</p>
+            </div>
+            
+            <div class="contact-item">
+                <i class="fas fa-clock"></i>
+                <h3>РЕЖИМ РАБОТЫ</h3>
+                <p>Пн-Пт: 8:00-22:00<br>Сб-Вс: 9:00-23:00</p>
+            </div>
+            
+            <div class="contact-item">
+                <i class="fas fa-phone"></i>
+                <h3>ТЕЛЕФОН</h3>
+                <p>+375 (29) 123-45-67<br>Заказ столиков</p>
+            </div>
+        </div>
+    </section>
+</body>
+</html>
